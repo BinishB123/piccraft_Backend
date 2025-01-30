@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 import { configDotenv } from "dotenv";
-import express, { urlencoded } from "express";
+import express from "express";
 import cors from 'cors'
 import authRouter from "../backend/router/auth.js";
+import errorHandler from "./middleware/errorHandling.js";
 
 
 
@@ -28,13 +29,11 @@ app.use(
       credentials: true,
     })
   );
-
-
 app.use('/auth',authRouter)
 
-
+app.use(errorHandler)
 app.listen(process.env.PORT+"",()=>{
- console.log(`server listening on ${process.env.port}`)
+ console.log(`server listening on ${process.env.port},${process.env.ORGIN}`)
 },)
 
        
