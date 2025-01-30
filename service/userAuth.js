@@ -14,10 +14,11 @@ const addUser = async (bodyData) => {
         "Please provide Reqired Datas",
         statusCode.FORBIDDEN
       );
-    authRepo.checkWhetherEmailExist(bodyData.email.trim()).then(async () => {
-      const response = await authRepo.addUser(bodyData);
+   const response = await authRepo.checkWhetherEmailExist(bodyData.email.trim())
+   if (response.success) {
+     const response = await authRepo.addUser(bodyData);
       return response;
-    });
+   }
   } catch (error) {
     throw new CustomError(error.message, error.statusCode);
   }

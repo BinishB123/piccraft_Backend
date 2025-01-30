@@ -13,7 +13,11 @@ const addUser = async (bodyData) => {
       password: hashedPassword,
     });
     if (userCreated) {
-      return { sucess: true };
+        return {
+            id: userCreated._id,
+            name: userCreated.name,
+            email: userCreated.email,
+          };
     }
     throw new CustomError("SignUp Failed Try again", statusCode.NO_CONTENT);
   } catch (error) {
@@ -24,13 +28,14 @@ const addUser = async (bodyData) => {
 const checkWhetherEmailExist = async (email) => {
   try {
     const emailExist = await userModel.findOne({ email: email.trim() });
-    if (!emailExist) {
-      return { success: true };
+    if (emailExist) { 
+        throw new CustomError(
+            "Email already exist use another email ",
+            statusCode.CONFLICT
+          ); 
+     
     }
-    throw new CustomError(
-      "Email already exist use another email ",
-      statusCode.CONFLICT
-    );
+    return { success: true };  
   } catch (error) {
     throw new CustomError(error.message, error.statusCode);
   }

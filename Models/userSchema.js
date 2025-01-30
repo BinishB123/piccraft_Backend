@@ -9,4 +9,4 @@ const useSchema = new Schema({
 
 const userModel = model("users",useSchema)
 
-export default userModel 
+export default userModel  
