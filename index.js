@@ -4,6 +4,9 @@ import express from "express";
 import cors from 'cors'
 import authRouter from "../backend/router/auth.js";
 import errorHandler from "./middleware/errorHandling.js";
+import imageRouter from "./router/image.js";
+import verification from "./middleware/auth.js";
+import cookieParser from "cookie-parser";
 
 
 
@@ -19,6 +22,7 @@ mongoose.connect(process.env.MOGO_URL).then(()=>{
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(cookieParser())
 
 
 app.use(
@@ -30,6 +34,7 @@ app.use(
     })
   );
 app.use('/auth',authRouter)
+app.use('/images',imageRouter)
 
 app.use(errorHandler)
 app.listen(process.env.PORT+"",()=>{
