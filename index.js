@@ -23,6 +23,16 @@ mongoose.connect(process.env.MOGO_URL).then(()=>{
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", process.env.ORIGIN || "https://piccraft-frontend.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, PATCH, OPTIONS, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Cache-Control");
+  res.header("Access-Control-Allow-Credentials", "true");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 
 app.use(
