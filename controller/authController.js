@@ -46,14 +46,14 @@ const login = async (req, res, next) => {
 
     res.cookie("RefreshToken", refTok, {
       httpOnly: true,
-      secure: false, // Set to false in local development
+      secure: true, // Set to false in local development
       sameSite: "Lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.cookie("AccessToken", tok, {
       httpOnly: true,
-      secure: false, // Set to false in local development
+      secure: true, // Set to false in local development
       sameSite: "Lax",
       maxAge: 30 * 60 * 1000,
     });
