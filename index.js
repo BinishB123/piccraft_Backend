@@ -27,15 +27,13 @@ app.use(cookieParser())
 
 
 app.use(
-  cors({
-    origin: process.env.ORIGIN || "https://piccraft-frontend.vercel.app",
-    methods: "GET, PUT, POST, PATCH, OPTIONS, DELETE",
-    allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
-    credentials: true,
-  })
-);
-
-app.options("*", cors());
+    cors({
+      origin: process.env.ORGIN,
+      methods: "GET,PUT,POST,PATCH,OPTIONS,DELETE",
+      allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
+      credentials: true,
+    })
+  );
 app.use('/auth',authRouter)
 app.use('/images',imageRouter)
 
