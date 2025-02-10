@@ -24,17 +24,17 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 
 
-app.use(cors({ origin: "*" }));
+// app.use(cors({ origin: "*" }));
 
 
-// app.use(
-//     cors({
-//       origin:"https://piccraft-frontend.vercel.app",
-//       methods: "GET,PUT,POST,PATCH,OPTIONS,DELETE",
-//       allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
-//       credentials: true,
-//     })
-//   );
+app.use(
+    cors({
+      origin:"https://piccraft-frontend.vercel.app/",
+      methods: "GET,PUT,POST,PATCH,OPTIONS,DELETE",
+      allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
+      credentials: true,
+    })
+  );
 app.use('/auth',authRouter)
 app.use('/images',imageRouter)
 
