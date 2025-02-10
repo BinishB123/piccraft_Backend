@@ -12,7 +12,7 @@ dotenvConfig(); // Load environment variables
 const app = express();
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(process.env.MOGO_URL)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("Mongoose connection error:", err));
 
