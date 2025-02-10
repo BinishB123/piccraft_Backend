@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { config as dotenvConfig } from "dotenv";
 import express from "express";
 import cors from "cors";
-import authRouter from "../backend/router/auth.js";
+import authRouter from "./router/auth.js";
 import errorHandler from "./middleware/errorHandling.js";
 import imageRouter from "./router/image.js";
 import cookieParser from "cookie-parser";
