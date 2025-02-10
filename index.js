@@ -1,47 +1,44 @@
 import mongoose from "mongoose";
-import { configDotenv } from "dotenv";
+import { config as dotenvConfig } from "dotenv";
 import express from "express";
-import cors from 'cors'
+import cors from "cors";
 import authRouter from "../backend/router/auth.js";
 import errorHandler from "./middleware/errorHandling.js";
 import imageRouter from "./router/image.js";
 import cookieParser from "cookie-parser";
 
+dotenvConfig(); // Load environment variables
 
+const app = express();
 
-const app = express()
-configDotenv()
-mongoose.connect(process.env.MOGO_URL).then(()=>{
-   console.log("mongoo connected")
-    
-}).catch(()=>{
-    console.log("mongoose connection error occured");
-    
-})
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("Mongoose connection error:", err));
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use(cookieParser())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
+// CORS Configuration
+app.use(
+  cors({
+    origin: "https://piccraft-frontend.vercel.app",
+    methods: "GET, PUT, POST, PATCH, OPTIONS, DELETE",
+    allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
+    credentials: true,
+  })
+);
 
-app.use(cors({ origin: "*" }));
+// Routes
+app.use("/auth", authRouter);
+app.use("/images", imageRouter);
 
+// Error Handling Middleware
+app.use(errorHandler);
 
-// app.use(
-//     cors({
-//       origin:"https://piccraft-frontend.vercel.app/",
-//       methods: "GET,PUT,POST,PATCH,OPTIONS,DELETE",
-//       allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
-//       credentials: true,
-//     })
-//   );
-app.use('/auth',authRouter)
-app.use('/images',imageRouter)
-
-app.use(errorHandler)
-app.listen(process.env.PORT+"",()=>{
- console.log(`server listening on ${process.env.port},${process.env.ORGIN}`)
-},)
-
-       
- 
+// Start Server
+const PORT = process.env.PORT ;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}, Origin: ${process.env.ORIGIN}`);
+});
