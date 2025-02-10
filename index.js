@@ -5,7 +5,6 @@ import cors from 'cors'
 import authRouter from "../backend/router/auth.js";
 import errorHandler from "./middleware/errorHandling.js";
 import imageRouter from "./router/image.js";
-import verification from "./middleware/auth.js";
 import cookieParser from "cookie-parser";
 
 
