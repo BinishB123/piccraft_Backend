@@ -31,7 +31,7 @@ app.use(
 );
 
 // Routes
-app.use("/auth", authRouter);
+app.use("/", authRouter);
 app.use("/images", imageRouter);
 
 // Error Handling Middleware
