@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 // CORS Configuration
 const allowedOrigins = [
-  "https://piccraft-frontend.vercel.app",
+  "https://piccraft-frontend.vercel.app/",
   "http://localhost:3000", // Allow local testing
 ];
 
