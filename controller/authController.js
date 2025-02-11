@@ -46,17 +46,20 @@ const login = async (req, res, next) => {
 
     res.cookie("RefreshToken", refTok, {
       httpOnly: true,
-      secure: true, // Set to false in local development
-      sameSite: "Lax",
+      sameSite: "none",
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: true // Change to true in production
     });
-
+    
     res.cookie("AccessToken", tok, {
       httpOnly: true,
-      secure: true, // Set to false in local development
-      sameSite: "Lax",
-      maxAge: 30 * 60 * 1000,
+      sameSite: "none",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: true // Change to true in production
     });
+    
 
     return res.status(statusCode.OK).json(response);
   } catch (error) {
