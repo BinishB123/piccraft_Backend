@@ -21,16 +21,28 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // CORS Configuration
+
+const allowedOrigins = [
+  "https://piccraft-frontend.vercel.app",
+  "https://piccraft-frontend.vercel.app/",
+  "http://localhost:3000", // Allow local testing
+];
+
 app.use(
   cors({
-    origin:"https://piccraft-frontend.vercel.app",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: "GET, PUT, POST, PATCH, OPTIONS, DELETE",
     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
-    credentials: true,
+    credentials: true, // Allow cookies
   })
 );
 
-// Routes
 app.use("/", authRouter);
 app.use("/images", imageRouter);
 
