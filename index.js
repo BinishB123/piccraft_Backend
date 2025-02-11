@@ -23,7 +23,7 @@ app.use(cookieParser());
 // CORS Configuration
 app.use(
   cors({
-    origin: "https://piccraft-frontend.vercel.app",
+    origin: "*",
     methods: "GET, PUT, POST, PATCH, OPTIONS, DELETE",
     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
     credentials: true,
