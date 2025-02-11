@@ -7,6 +7,8 @@ const addImage = async(req,res,next)=>{
     try {
         const data = req.body
         const files = req.files
+        console.log(data.imageData);
+        
         const imageDatas = data.imageData.map((data)=>{
             return JSON.parse(data)
         })
