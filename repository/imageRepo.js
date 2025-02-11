@@ -36,23 +36,28 @@ const addImage = async (urls, imageData, maxPositionNumber, userid) => {
   }
 };
 
-const getLatestImages = async (id,skip) => {
+const getLatestImages = async (id, skip = 0) => {
   try {
-    console.log(id); 
+    console.log(id, skip); 
+    
+    skip = Number(skip); // Ensure skip is a number
+    if (isNaN(skip) || skip < 0) skip = 0; // Handle invalid or negative values
     
     const images = await imageModel.aggregate([
-      { $match: { userid: new mongoose.Types.ObjectId(id+"") } },
-      { $sort: { postion: -1 } },
-       {$skip:(skip-1)*8},
+      { $match: { userid: new mongoose.Types.ObjectId(id + "") } },
+      { $sort: { position: -1 } },
+      { $skip: skip > 0 ? (skip - 1) * 8 : 0 }, 
       { $limit: 8 },
     ]);
-    const image = await imageModel.find({userid: new mongoose.Types.ObjectId(id+"")})
-    
-    return {images:images ? images : [] ,count:image.length};
+
+    const image = await imageModel.find({ userid: new mongoose.Types.ObjectId(id + "") });
+
+    return { images: images || [], count: image.length };
   } catch (error) {
     throw new CustomError(error.message, error.statusCode);
   }
 };
+
 
 const deleteImage = async (id) => {
   try {
