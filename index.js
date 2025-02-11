@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin:"*",
+    origin:"https://piccraft-frontend.vercel.app/",
     methods: "GET, PUT, POST, PATCH, OPTIONS, DELETE",
     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
     credentials: true, // Allow cookies
