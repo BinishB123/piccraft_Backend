@@ -19,6 +19,8 @@ const maxPositionNumber = async (userid) => {
 
 const addImage = async (urls, imageData, maxPositionNumber, userid) => {
   try {
+    console.log(urls, imageData, maxPositionNumber, userid);
+    
     let count = maxPositionNumber + 1;
     for (let i = 0; i < imageData.length; i++) {
       await imageModel.create({
@@ -55,7 +57,7 @@ const getLatestImages = async (id,skip) => {
 const deleteImage = async (id) => {
   try {
     const deleted = await imageModel.deleteOne({
-      _id: new mongoose.Types.ObjectId(id + ""),
+      _id: new mongoose.Types.ObjectId(id+""),
     });
     if (deleted.deletedCount === 1) {
       return true;
