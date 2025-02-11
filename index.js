@@ -21,28 +21,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // CORS Configuration
-const allowedOrigins = [
-  "https://piccraft-frontend.vercel.app/",
-  "http://localhost:3000", // Allow local testing
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin:"https://piccraft-frontend.vercel.app",
     methods: "GET, PUT, POST, PATCH, OPTIONS, DELETE",
     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
-    credentials: true, 
+    credentials: true,
   })
 );
-
-app.options("*", cors());
-
 
 // Routes
 app.use("/", authRouter);
